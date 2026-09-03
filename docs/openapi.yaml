@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info:
+  title: Employee Management API
+  description: RESTful API specification for managing employees and departments.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000/api/v1
+    description: Local Development Server
+
+paths:
+  /employees:
+    get:
+      summary: View all employees or filter/search
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: department
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of employees.
+    post:
+      summary: Add a new employee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeInput'
+      responses:
+        '201':
+          description: Employee successfully created.
+
+  /employees/{id}:
+    get:
+      summary: View a single employee by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee details.
+        '404':
+          description: Employee not found.
+
+components:
+  schemas:
+    EmployeeInput:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: Juan
+        last_name:
+          type: string
+          example: Dela Cruz
+        email:
+          type: string
+          example: juan@example.com
+        department:
+          type: string
+          example: IT
+        position:
+          type: string
+          example: Programmer
