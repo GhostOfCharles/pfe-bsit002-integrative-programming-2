@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\EmployeeController;
 
 Route::get('/students', function () {
     return response()->json([
@@ -16,3 +17,10 @@ Route::get('/students', function () {
         ]
     ]);
 });
+
+
+Route::get('/employees', [EmployeeController::class, 'index']);
+Route::post('/employees', [EmployeeController::class, 'store']);
+Route::get('/employees/{id}', [EmployeeController::class, 'show']);
+Route::put('/employees/{id}', [EmployeeController::class, 'update']);
+Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
